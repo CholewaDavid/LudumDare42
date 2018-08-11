@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="104.96638mm"
+   height="61.958149mm"
+   viewBox="0 0 104.96638 61.95815"
+   version="1.1"
+   id="svg822"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="helpText.svg">
+  <defs
+     id="defs816" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994948"
+     inkscape:cx="-201.09395"
+     inkscape:cy="81.551979"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata819">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-42.276586,-145.033)">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.88055563px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="42.227322"
+       y="147.98131"
+       id="text851"><tspan
+         sodipodi:role="line"
+         id="tspan849"
+         x="42.227322"
+         y="147.98131"
+         style="stroke-width:0.26458332px">Controls:</tspan><tspan
+         sodipodi:role="line"
+         x="42.227322"
+         y="152.832"
+         style="stroke-width:0.26458332px"
+         id="tspan855">WASD/Arrow keys: movement</tspan><tspan
+         sodipodi:role="line"
+         x="42.227322"
+         y="157.68269"
+         style="stroke-width:0.26458332px"
+         id="tspan859" /><tspan
+         sodipodi:role="line"
+         x="42.227322"
+         y="162.53339"
+         style="stroke-width:0.26458332px"
+         id="tspan861" /><tspan
+         sodipodi:role="line"
+         x="42.227322"
+         y="167.38408"
+         style="stroke-width:0.26458332px"
+         id="tspan4806" /><tspan
+         sodipodi:role="line"
+         x="42.227322"
+         y="172.23479"
+         style="stroke-width:0.26458332px"
+         id="tspan4802">Goal:</tspan><tspan
+         sodipodi:role="line"
+         x="42.227322"
+         y="177.08548"
+         style="stroke-width:0.26458332px"
+         id="tspan4784">Make sure the toxic tank doesn't fill up</tspan><tspan
+         sodipodi:role="line"
+         x="42.227322"
+         y="181.93617"
+         style="stroke-width:0.26458332px"
+         id="tspan4786" /><tspan
+         sodipodi:role="line"
+         x="42.227322"
+         y="186.78687"
+         style="stroke-width:0.26458332px"
+         id="tspan4788" /><tspan
+         sodipodi:role="line"
+         x="42.227322"
+         y="191.63756"
+         style="stroke-width:0.26458332px"
+         id="tspan4790" /><tspan
+         sodipodi:role="line"
+         x="42.227322"
+         y="196.48825"
+         style="stroke-width:0.26458332px"
+         id="tspan4792" /><tspan
+         sodipodi:role="line"
+         x="42.227322"
+         y="201.33894"
+         style="stroke-width:0.26458332px"
+         id="tspan4794" /><tspan
+         sodipodi:role="line"
+         x="42.227322"
+         y="206.18964"
+         style="stroke-width:0.26458332px"
+         id="tspan869">Good Luck</tspan></text>
+  </g>
+</svg>
