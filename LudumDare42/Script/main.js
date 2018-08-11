@@ -6,6 +6,19 @@ var CurrentModeEnum = Object.freeze({"game": 1, "menu": 2})
 var currentMode = CurrentModeEnum.menu;
 
 window.onload = function(){
+	document.getElementById("canvasGame").addEventListener('click', function(event) {
+		if(currentMode == CurrentModeEnum.game && game.runGame){
+			var rect = this.getBoundingClientRect();
+			var x = (event.clientX - rect.left) + game.board.pos[0] - 120;
+			var y = (event.clientY - rect.top) + game.board.pos[1] - 65;
+			var clickedTile = game.board.convertPosToTile([x, y]);
+			if(clickedTile[0] < 0 || clickedTile[1] < 0 || clickedTile[0] >= game.board.sizeX || clickedTile[1] >= game.board.sizeY)
+				return;
+			game.board.getTile(clickedTile).addEntity(new Pipe(game, game.getCanvasContext(), clickedTile));
+			//console.log(clickedTile);
+		}
+	}, false);
+	
 	document.getElementById("canvasGame").getContext("2d").save();
 	game = new Game(document.getElementById("canvasGame"));
 	entryMenu = new EntryMenu(document.getElementById("canvasGame"));
@@ -76,4 +89,11 @@ window.onkeyup = function(event){
 		}
 		break;
 	}
+}
+
+function getCursorPosition(canvas, event) {
+    var rect = canvas.getBoundingClientRect();
+    var x = event.clientX - rect.left;
+    var y = event.clientY - rect.top;
+    console.log("x: " + x + " y: " + y);
 }

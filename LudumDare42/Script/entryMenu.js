@@ -22,8 +22,8 @@ EntryMenu.prototype.showHelp = function(){
 EntryMenu.prototype.endGame = function(){
 	clearInterval(this.gameLoopIntervalId);
 	this.canvas.getContext("2d").restore();
-	entryMenuIntervalId = window.setInterval(function () { this.draw(); }, windowDrawInterval);
-	game = new Game();
+	entryMenuIntervalId = window.setInterval(function () { entryMenu.draw(); }, windowDrawInterval);
+	game.reset();
 }
 
 EntryMenu.prototype.draw = function(){

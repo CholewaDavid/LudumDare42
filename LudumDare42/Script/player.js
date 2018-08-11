@@ -1,19 +1,24 @@
 function Player(game, canvasContext, tile){
 	Entity.call(this, game, canvasContext, game.board.convertTileToPos(tile), false);
 	
+	this.MAXIMUM_FLUID = 50;
+	
 	this.MovementEnum = Object.freeze({"left": 1, "up": 2, "right": 3, "down": 4});
 	
 	this.tile = tile.slice();
 	this.movementDirections = [false, false, false, false];
 	this.sprite = new Sprite(this.canvasContext, this.position, "Images/player.svg");
 	this.speed = 5;
+	this.fluid = 0;
 }
 
 Player.prototype = Object.create(Entity.prototype);
 
 Player.prototype.draw = function(){
 	this.sprite.position = this.position.slice();
+	this.canvasContext.translate(0,-this.sprite.image.height);
 	this.sprite.draw();
+	this.canvasContext.translate(0,this.sprite.image.height);
 }
 
 Player.prototype.update = function(){
@@ -59,11 +64,17 @@ Player.prototype.move = function(){
 			else if(targetTile[0] > this.tile[0]){
 				this.position[0] = tileEndPos[2];
 			}
+			else{
+				this.position[0] = targetPos[0];
+			}
 			if(targetTile[1] < this.tile[1]){
 				this.position[1] = tileEndPos[1];
 			}
 			else if(targetTile[1] > this.tile[1]){
 				this.position[1] = tileEndPos[3];
+			}
+			else{
+				this.position[1] = targetPos[1];
 			}
 		}
 		else{
@@ -99,4 +110,14 @@ Player.prototype.enableMovementDirection = function(dir){
 
 Player.prototype.disableMovementDirection = function(dir){
 	this.movementDirections[dir-1] = false;
+}
+
+Player.prototype.takeFluid = function(amount){
+	this.fluid += amount;
+	amount = 0;
+	if(this.fluid > this.MAXIMUM_FLUID){
+		amount = this.fluid - this.MAXIMUM_FLUID;
+		this.fluid = this.MAXIMUM_FLUID;
+	}
+	return amount;
 }
