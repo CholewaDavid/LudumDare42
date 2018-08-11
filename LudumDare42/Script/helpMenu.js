@@ -1,6 +1,5 @@
 function HelpMenu(canvas){
 	this.canvas = canvas;
-	this.background = new Sprite(this.canvas.getContext("2d"), [0,0], "Images/mainMenuBackground.svg");
 	this.buttons = [];
 	this.fillButtons();
 	this.activeButtonIndex = 0;
@@ -8,7 +7,7 @@ function HelpMenu(canvas){
 }
 
 HelpMenu.prototype.draw = function(){
-	this.background.draw();
+	game.draw();
 	this.helpTextSprite.draw();
 	for(var i = 0; i < this.buttons.length; i++)
 		this.buttons[i].draw();

@@ -1,7 +1,6 @@
 function EntryMenu(canvas){
 	this.canvas = canvas;
 	this.gameLoopIntervalId;
-	this.background = new Sprite(this.canvas.getContext("2d"), [0,0], "Images/mainMenuBackground.svg");
 	this.buttons = [];
 	this.fillButtons();
 	this.activeButtonIndex = 0;
@@ -11,7 +10,6 @@ function EntryMenu(canvas){
 
 EntryMenu.prototype.startGame = function(){
 	clearInterval(entryMenuIntervalId);
-	game = new Game(this.canvas);
 	this.gameLoopIntervalId = window.setInterval(function () { game.gameLoop(); }, windowDrawInterval);
 	currentMode = CurrentModeEnum.game;
 }
@@ -25,6 +23,7 @@ EntryMenu.prototype.endGame = function(){
 	clearInterval(this.gameLoopIntervalId);
 	this.canvas.getContext("2d").restore();
 	entryMenuIntervalId = window.setInterval(function () { this.draw(); }, windowDrawInterval);
+	game = new Game();
 }
 
 EntryMenu.prototype.draw = function(){
@@ -32,7 +31,7 @@ EntryMenu.prototype.draw = function(){
 		this.helpMenu.draw();
 		return;
 	}
-	this.background.draw();
+	game.draw();
 	for(var i = 0; i < this.buttons.length; i++)
 		this.buttons[i].draw();
 }
