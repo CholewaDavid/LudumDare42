@@ -38,6 +38,7 @@ window.onload = function(){
 							game.player.fluid -= game.player.fluid - game.cars[i].addFluid(game.player.fluid);
 						}
 					}
+					return;
 				}
 				//Clicked building?
 				var building = boardTile.getBuilding();

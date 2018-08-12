@@ -169,20 +169,29 @@ Game.prototype.buildEntity = function(tile){
 	var built = false;
 	switch(this.selectedBuilding){
 		case this.BuildingEnum.pipe:
+			if(this.money < this.pricePipe)
+				break;
 			boardTile.addEntity(new Pipe(game, game.getCanvasContext(), tile));
 			built = true;
+			this.money -= this.pricePipe;
 			break;
 		case this.BuildingEnum.input:
 			if(tile[0] != 0)
 				break;
+			if(this.money < this.priceInput)
+				break;
 			boardTile.addEntity(new Input(game, game.getCanvasContext(), tile));
 			built = true;
+			this.money -= this.priceInput;
 			break;
 		case this.BuildingEnum.output:
 			if(tile[0] != this.board.sizeX - 1)
 				break;
+			if(this.money < this.priceOutput)
+				break;
 			boardTile.addEntity(new Output(game, game.getCanvasContext(), tile));
 			built = true;
+			this.money -= this.priceOutput;
 			break;
 	}
 	
