@@ -9,13 +9,13 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="1"
-   height="1"
-   viewBox="0 0 1 1"
+   width="32"
+   height="32"
+   viewBox="0 0 32 32.000001"
    version="1.1"
    id="svg8"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
-   sodipodi:docname="player.svg">
+   sodipodi:docname="storageTank.svg">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="63.356768"
-     inkscape:cx="0.41430665"
-     inkscape:cy="3.1875196"
+     inkscape:zoom="7.919596"
+     inkscape:cx="2.2083714"
+     inkscape:cy="11.141103"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -38,7 +38,9 @@
      inkscape:window-maximized="1"
      units="px"
      showguides="true"
-     inkscape:guide-bbox="true">
+     inkscape:guide-bbox="true"
+     inkscape:snap-bbox="false"
+     inkscape:snap-page="true">
     <sodipodi:guide
        position="50,108.21429"
        orientation="1,0"
@@ -53,7 +55,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -61,12 +63,27 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-1121.5196)">
-    <circle
-       style="opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.21839941;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0.5;stroke-opacity:1"
-       id="path4749"
-       cx="0.5"
-       cy="1122.0197"
-       r="0.5" />
+     transform="translate(0,-1090.5)">
+    <ellipse
+       style="opacity:1;fill:#415c43;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.82717717;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0.5;stroke-opacity:1"
+       id="path4747"
+       cx="15.892857"
+       cy="1117.1061"
+       rx="11.160714"
+       ry="4.7195592" />
+    <rect
+       style="opacity:1;fill:#415c43;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.99929404;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0.5;stroke-opacity:1"
+       id="rect4749"
+       width="22.334505"
+       height="19.910715"
+       x="4.7190671"
+       y="1097.4502" />
+    <ellipse
+       ry="6.8977008"
+       rx="11.160714"
+       cy="1097.6921"
+       cx="15.892857"
+       id="ellipse4751"
+       style="opacity:1;fill:#415c43;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0.5;stroke-opacity:1" />
   </g>
 </svg>

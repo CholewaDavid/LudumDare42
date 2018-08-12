@@ -4,6 +4,7 @@ function ToxicBarrel(game, canvasContext, pos){
 	this.MAXIMUM_FLUID = 1000;
 	this.fluid = 0;
 	this.fillSpeed = 0.1;
+	this.fillSpeedIncrease = 0.00005;
 	this.sprite = new Sprite(this.canvasContext, this.position, "Images/toxicBarrel.svg");
 }
 
@@ -15,6 +16,7 @@ ToxicBarrel.prototype.draw = function(){
 
 ToxicBarrel.prototype.update = function(){
 	this.addFluid(this.fillSpeed);
+	this.fillSpeed += this.fillSpeedIncrease;
 }
 
 ToxicBarrel.prototype.removeFluid = function(amount){

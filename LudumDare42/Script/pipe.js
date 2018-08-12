@@ -17,10 +17,10 @@ Pipe.prototype.update = function(){
 	if(this.hasFluid)
 		return;
 	
-	this.checkFluidConectivity();
+	this.checkFluidConnectivity();
 }
 
-Pipe.prototype.checkFluidConectivity = function(){
+Pipe.prototype.checkFluidConnectivity = function(){
 	var tiles = [[this.tile[0]-1,this.tile[1]], [this.tile[0]+1,this.tile[1]], [this.tile[0],this.tile[1]-1], [this.tile[0],this.tile[1]+1]];
 	for(var i = 0; i < tiles.length; i++){
 		if(tiles[i][0] < 0 || tiles[i][0] >= this.game.board.sizeX || tiles[i][1] < 0 || tiles[i][1] >= this.game.board.sizeY)

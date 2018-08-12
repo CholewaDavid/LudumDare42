@@ -46,7 +46,7 @@ window.onload = function(){
 				var building = boardTile.getBuilding();
 				if(building == null)
 					return;
-				if(building instanceof Input){
+				if(building instanceof Input || building instanceof StorageTank){
 					game.player.takeFluid(building.takeFluid(game.player.canTakeFluidAmount()));
 				}
 			}
@@ -87,6 +87,9 @@ window.onkeydown = function(event){
 				break;
 			case 51:
 				game.chooseSelectedBuilding(game.BuildingEnum.output);
+				break;
+			case 52:
+				game.chooseSelectedBuilding(game.BuildingEnum.storageTank);
 				break;
 			case 27:
 				game.chooseSelectedBuilding(null);

@@ -2,7 +2,7 @@ function Game(canvas){
 	this.START_GAME_CAMERA_PAN_SPEED = 5;
 	this.CAR_SPAWN_POSITION = [1209, -100];
 	
-	this.BuildingEnum = Object.freeze({"pipe": 1, "input": 2, "output": 3});
+	this.BuildingEnum = Object.freeze({"pipe": 1, "input": 2, "output": 3, "storageTank": 4});
 	
 	this.startGameCameraPanProgress = 0;
 	this.canvas = canvas;
@@ -15,10 +15,11 @@ function Game(canvas){
 	this.selectedBuilding = null;
 	this.uiBuildings = [];
 	
-	this.money = 0;
+	this.money = 50000;
 	this.pricePipe = 5;
 	this.priceInput = 50;
 	this.priceOutput = 25;
+	this.priceStorageTank = 15;
 	
 	this.computePositions();
 	this.board = new Board(this, this.canvas, [720, 65]);
@@ -50,7 +51,7 @@ Game.prototype.update = function(){
 	this.board.update();
 	
 	//Car spawn chance
-	if(Math.floor(Math.random()*1000) == 990)
+	if(Math.floor(Math.random()*1000) == 950)
 		this.spawnCar();
 	
 	for(var i = 0; i < this.cars.length; i++){
@@ -191,6 +192,13 @@ Game.prototype.buildEntity = function(tile){
 			built = true;
 			this.money -= this.priceOutput;
 			break;
+		case this.BuildingEnum.storageTank:
+			if(this.money < this.priceStorageTank)
+				break;
+			boardTile.addEntity(new StorageTank(game, game.getCanvasContext(), tile));
+			built = true;
+			this.money -= this.priceStorageTank;
+			break;
 	}
 	
 	if(built){
@@ -222,6 +230,11 @@ Game.prototype.chooseSelectedBuilding = function(building){
 			this.building = true;
 			this.activateUIBuilding(2);
 			break;
+		case this.BuildingEnum.storageTank:
+			this.selectedBuilding = this.BuildingEnum.storageTank;
+			this.building = true;
+			this.activateUIBuilding(3);
+			break;
 		case null:
 			this.selectedBuilding = null;
 			this.building = false;
@@ -243,6 +256,7 @@ Game.prototype.addUIElements = function(){
 	this.uiBuildings.push(new UIBuilding(uiBuildingsPos, "Images/Pipes/pipe_EW.svg", this.getCanvasContext(), this.pricePipe, 1));
 	this.uiBuildings.push(new UIBuilding(uiBuildingsPos, "Images/input.svg", this.getCanvasContext(), this.priceInput, 2));
 	this.uiBuildings.push(new UIBuilding(uiBuildingsPos, "Images/output.svg", this.getCanvasContext(), this.priceOutput, 3));
+	this.uiBuildings.push(new UIBuilding(uiBuildingsPos, "Images/storageTank.svg", this.getCanvasContext(), this.priceStorageTank, 4));
 }
 
 Game.prototype.drawUI = function(){
@@ -254,4 +268,13 @@ Game.prototype.drawUI = function(){
 	this.player.drawFluidFillText();
 	for(var i = 0; i < this.cars.length; i++)
 		this.cars[i].drawFluidFillText();
+	for(var i = 0; i < this.board.sizeX; i++){
+		for(var j = 0; j < this.board.sizeY; j++){
+			var building = this.board.getTile([i,j]).getBuilding();
+			if(building == null)
+				continue;
+			if(building instanceof StorageTank)
+				building.drawFluidFillText();
+		}
+	}
 }
