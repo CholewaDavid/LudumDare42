@@ -77,16 +77,16 @@ window.onkeydown = function(event){
 				game.player.enableMovementDirection(game.player.MovementEnum.right);
 				break;
 			case 49:
-				game.selectedBuilding = game.BuildingEnum.pipe;
-				game.building = true;
+				game.chooseSelectedBuilding(game.BuildingEnum.pipe);
 				break;
 			case 50:
-				game.selectedBuilding = game.BuildingEnum.input;
-				game.building = true;
+				game.chooseSelectedBuilding(game.BuildingEnum.input);
 				break;
 			case 51:
-				game.selectedBuilding = game.BuildingEnum.output;
-				game.building = true;
+				game.chooseSelectedBuilding(game.BuildingEnum.output);
+				break;
+			case 27:
+				game.chooseSelectedBuilding(null);
 				break;
 		}
 		break;

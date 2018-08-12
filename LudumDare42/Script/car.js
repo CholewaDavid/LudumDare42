@@ -2,6 +2,7 @@ function Car(game, canvasContext, pos, parkingPosY, parkingTileY){
 	Entity.call(this, game, canvasContext, pos, false);
 	
 	this.MAXIMUM_FLUID = 100;
+	this.MAXIMUM_MONEY = 20;
 	this.sprite = new Sprite(this.canvasContext, this.position, "Images/car.svg");
 	this.speed = 2;
 	this.waiting = false;
@@ -54,4 +55,8 @@ Car.prototype.addFluid = function(amount){
 		this.fluid = this.MAXIMUM_FLUID;
 	}
 	return amount;
+}
+
+Car.prototype.getMoney = function(){
+	return this.MAXIMUM_MONEY * (this.fluid / this.MAXIMUM_FLUID);
 }

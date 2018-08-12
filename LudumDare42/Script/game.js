@@ -13,6 +13,12 @@ function Game(canvas){
 	this.gameOver = false;
 	this.building = false;
 	this.selectedBuilding = null;
+	this.uiBuildings = [];
+	
+	this.money = 0;
+	this.pricePipe = 5;
+	this.priceInput = 50;
+	this.priceOutput = 25;
 	
 	this.computePositions();
 	this.board = new Board(this, this.canvas, [720, 65]);
@@ -20,6 +26,7 @@ function Game(canvas){
 	this.cars = [];
 	this.toxicBarrel = new ToxicBarrel(this, this.getCanvasContext(), [525, 100]);
 	this.addStructures();
+	this.addUIElements();
 }
 
 
@@ -52,8 +59,10 @@ Game.prototype.update = function(){
 	
 	//Delete cars
 	for(var i = this.cars.length - 1; i >= 0; i--){
-		if(this.cars[i].position[1] > 1000)
+		if(this.cars[i].position[1] > 1000){
+			this.money += this.cars[i].getMoney();
 			this.cars.splice(i, 1);
+		}
 	}
 }
 
@@ -65,6 +74,8 @@ Game.prototype.draw = function(){
 	for(var i = 0; i < this.cars.length; i++){
 		this.cars[i].draw();
 	}
+	if(this.runGame)
+		this.drawUI();
 }
 
 Game.prototype.getCanvasContext = function(){
@@ -149,24 +160,87 @@ Game.prototype.reset = function(){
 	this.cars = [];
 	this.toxicBarrel = new ToxicBarrel(this, this.getCanvasContext(), [525, 100]);
 	this.selectedBuilding = null;
+	this.money = 0;
 	this.addStructures();
 }
 
 Game.prototype.buildEntity = function(tile){
 	var boardTile = this.board.getTile(tile);
+	var built = false;
 	switch(this.selectedBuilding){
 		case this.BuildingEnum.pipe:
 			boardTile.addEntity(new Pipe(game, game.getCanvasContext(), tile));
+			built = true;
 			break;
 		case this.BuildingEnum.input:
 			if(tile[0] != 0)
 				break;
 			boardTile.addEntity(new Input(game, game.getCanvasContext(), tile));
+			built = true;
 			break;
 		case this.BuildingEnum.output:
 			if(tile[0] != this.board.sizeX - 1)
 				break;
 			boardTile.addEntity(new Output(game, game.getCanvasContext(), tile));
+			built = true;
 			break;
 	}
+	
+	if(built){
+		for(var i = 0; i < this.board.sizeX; i++){
+			for(var j = 0; j < this.board.sizeY; j++){
+				var tile = this.board.getTile([i,j]);
+				var building = tile.getBuilding();
+				if(building instanceof Pipe)
+					building.updateSprite();
+			}
+		}
+	}
+}
+
+Game.prototype.chooseSelectedBuilding = function(building){
+	switch(building){
+		case this.BuildingEnum.pipe:
+			this.selectedBuilding = this.BuildingEnum.pipe;
+			this.building = true;
+			this.activateUIBuilding(0);
+			break;
+		case this.BuildingEnum.input:
+			this.selectedBuilding = this.BuildingEnum.input;
+			this.building = true;
+			this.activateUIBuilding(1);
+			break;
+		case this.BuildingEnum.output:
+			this.selectedBuilding = this.BuildingEnum.output;
+			this.building = true;
+			this.activateUIBuilding(2);
+			break;
+		case null:
+			this.selectedBuilding = null;
+			this.building = false;
+			this.activateUIBuilding(-1);
+			break;
+	}
+}
+
+Game.prototype.activateUIBuilding = function(id){
+	for(var i = 0; i < this.uiBuildings.length; i++)
+		this.uiBuildings[i].active = false;
+	if(id < 0)
+		return;
+	this.uiBuildings[id].active = true;
+}
+
+Game.prototype.addUIElements = function(){
+	var uiBuildingsPos = [600, 600];
+	this.uiBuildings.push(new UIBuilding(uiBuildingsPos, "Images/Pipes/pipe_EW.svg", this.getCanvasContext(), this.pricePipe, 1));
+	this.uiBuildings.push(new UIBuilding(uiBuildingsPos, "Images/input.svg", this.getCanvasContext(), this.priceInput, 2));
+	this.uiBuildings.push(new UIBuilding(uiBuildingsPos, "Images/output.svg", this.getCanvasContext(), this.priceOutput, 3));
+}
+
+Game.prototype.drawUI = function(){
+	for(var i = 0; i < this.uiBuildings.length; i++)
+		this.uiBuildings[i].draw();
+	this.getCanvasContext().font = "20px Arial";
+	this.getCanvasContext().fillText(this.money + "$", 800, 600);
 }
