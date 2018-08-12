@@ -18,8 +18,6 @@ Player.prototype.draw = function(){
 	this.sprite.position = this.position.slice();
 	this.canvasContext.translate(-this.sprite.image.width/2,-this.sprite.image.height);
 	this.sprite.draw();
-	this.canvasContext.font = "20px Arial";
-	this.canvasContext.fillText(Math.floor(this.fluid) + "/" + this.MAXIMUM_FLUID, this.position[0], this.position[1]);
 	this.canvasContext.translate(this.sprite.image.width/2,this.sprite.image.height);
 }
 
@@ -126,4 +124,11 @@ Player.prototype.takeFluid = function(amount){
 
 Player.prototype.canTakeFluidAmount = function(){
 	return this.MAXIMUM_FLUID - this.fluid;
+}
+
+Player.prototype.drawFluidFillText = function(){
+	this.canvasContext.translate(-this.sprite.image.width/2,-this.sprite.image.height);
+	this.canvasContext.font = "20px Arial";
+	this.canvasContext.fillText(Math.floor(this.fluid) + "/" + this.MAXIMUM_FLUID, this.position[0], this.position[1]);
+	this.canvasContext.translate(this.sprite.image.width/2,this.sprite.image.height);
 }

@@ -11,7 +11,6 @@ ToxicBarrel.prototype = Object.create(Entity.prototype);
 
 ToxicBarrel.prototype.draw = function(){
 	this.sprite.draw();
-	this.drawFluidFillText();
 }
 
 ToxicBarrel.prototype.update = function(){

@@ -6,6 +6,7 @@ var CurrentModeEnum = Object.freeze({"game": 1, "menu": 2})
 var currentMode = CurrentModeEnum.menu;
 
 window.onload = function(){
+	window.setTimeout(canvasLoad, 1);
 	document.getElementById("canvasGame").addEventListener('click', function(event) {
 		if(currentMode == CurrentModeEnum.game && game.runGame){
 			var rect = this.getBoundingClientRect();
@@ -22,6 +23,7 @@ window.onload = function(){
 			}
 			var boardTile = game.board.getTile(clickedTile);
 			
+			//Building?
 			if(game.building){
 				if(clickedCar || boardTile.getBuilding() != null)
 					return;
@@ -140,4 +142,9 @@ function getCursorPosition(canvas, event) {
     var x = event.clientX - rect.left;
     var y = event.clientY - rect.top;
     console.log("x: " + x + " y: " + y);
+}
+
+function canvasLoad(){
+	document.getElementById("canvasGame").width = 799.99999;
+	document.getElementById("canvasGame").width = 800;
 }

@@ -125,9 +125,7 @@ Game.prototype.startGame = function(){
 }
 
 Game.prototype.addStructures = function(){
-	this.board.getTile([0,0]).addEntity(new Input(this, this.getCanvasContext(), [0,0]));
 	this.board.getTile([0,7]).addEntity(new Input(this, this.getCanvasContext(), [0,7]));
-	this.board.getTile([0,14]).addEntity(new Input(this, this.getCanvasContext(), [0,14]));
 }
 
 Game.prototype.spawnCar = function(){
@@ -251,5 +249,9 @@ Game.prototype.drawUI = function(){
 	for(var i = 0; i < this.uiBuildings.length; i++)
 		this.uiBuildings[i].draw();
 	this.getCanvasContext().font = "20px Arial";
-	this.getCanvasContext().fillText(this.money + "$", 800, 600);
+	this.getCanvasContext().fillText(Math.floor(this.money) + "$", 800, 600);
+	this.toxicBarrel.drawFluidFillText();
+	this.player.drawFluidFillText();
+	for(var i = 0; i < this.cars.length; i++)
+		this.cars[i].drawFluidFillText();
 }

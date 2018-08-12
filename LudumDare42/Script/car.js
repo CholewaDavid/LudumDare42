@@ -19,8 +19,6 @@ Car.prototype = Object.create(Entity.prototype);
 Car.prototype.draw = function(){
 	this.sprite.position = this.position.slice();
 	this.sprite.draw();
-	this.canvasContext.font = "20px Arial";
-	this.canvasContext.fillText(Math.floor(this.fluid) + "/" + this.MAXIMUM_FLUID, this.position[0] + 100, this.position[1]);
 }
 
 Car.prototype.update = function(){
@@ -59,4 +57,11 @@ Car.prototype.addFluid = function(amount){
 
 Car.prototype.getMoney = function(){
 	return this.MAXIMUM_MONEY * (this.fluid / this.MAXIMUM_FLUID);
+}
+
+Car.prototype.drawFluidFillText = function(){
+	this.canvasContext.font = "18px Arial";
+	this.canvasContext.textAlign = "center";
+	this.canvasContext.fillText(Math.floor(this.fluid), this.position[0] + 16, this.position[1] + 27);
+	this.canvasContext.textAlign = "left";
 }

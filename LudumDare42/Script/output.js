@@ -17,7 +17,7 @@ Output.prototype.draw = function(){
 
 Output.prototype.update = function(){
 	if(!this.connected)
-		this.checkConnectivity();
+		this.checkFluidConnectivity();
 	else{
 		for(var i = 0; i < this.game.cars.length; i++){
 			if(this.game.cars[i].parkingTileY == this.tile[1]){
@@ -29,7 +29,7 @@ Output.prototype.update = function(){
 	}
 }
 
-Output.prototype.checkConnectivity = function(){
+Output.prototype.checkFluidConnectivity = function(){
 	var tiles = [[this.tile[0]-1,this.tile[1]], [this.tile[0]+1,this.tile[1]], [this.tile[0],this.tile[1]-1], [this.tile[0],this.tile[1]+1]];
 	for(var i = 0; i < tiles.length; i++){
 		if(tiles[i][0] < 0 || tiles[i][0] >= this.game.board.sizeX || tiles[i][1] < 0 || tiles[i][1] >= this.game.board.sizeY)
