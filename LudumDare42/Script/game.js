@@ -2,7 +2,7 @@ function Game(canvas){
 	this.START_GAME_CAMERA_PAN_SPEED = 5;
 	this.CAR_SPAWN_POSITION = [1209, -100];
 	
-	this.BuildingEnum = Object.freeze({"pipe": 1, "input": 2, "output": 3, "storageTank": 4, "transmitter": 5, "moneyPrinter": 6});
+	this.BuildingEnum = Object.freeze({"pipe": 1, "input": 2, "output": 3, "storageTank": 4, "transmitter": 5, "moneyPrinter": 6, "generator": 7, "transformer": 8, "transmitionTower": 9});
 	
 	this.startGameCameraPanProgress = 0;
 	this.canvas = canvas;
@@ -15,19 +15,24 @@ function Game(canvas){
 	this.selectedBuilding = null;
 	this.uiBuildings = [];
 	this.transmitterCount = 0;
+	this.power = 10;
 	
 	this.money = 50000;
-	this.pricePipe = 5;
+	this.pricePipe = 2;
 	this.priceInput = 75;
 	this.priceOutput = 25;
 	this.priceStorageTank = 15;
 	this.priceTransmitter = 35;
 	this.priceMoneyPrinter = 50;
+	this.priceGenerator = 15;
+	this.priceTransformer = 20;
+	this.priceTransmitionTower = 5;
 	
 	this.computePositions();
 	this.board = new Board(this, this.canvas, [720, 65]);
 	this.player = new Player(this, this.getCanvasContext(), this.board.getPlayerSpawnTile());
 	this.cars = [];
+	this.powerStation = null;
 	this.toxicBarrel = new ToxicBarrel(this, this.getCanvasContext(), [525, 100]);
 	this.addStructures();
 	this.addUIElements();
@@ -130,6 +135,8 @@ Game.prototype.startGame = function(){
 
 Game.prototype.addStructures = function(){
 	this.board.getTile([0,7]).addEntity(new Input(this, this.getCanvasContext(), [0,7]));
+	this.powerStation = new PowerStation(this, this.getCanvasContext(), [0,2]);
+	this.board.getTile([0,2]).addEntity(this.powerStation);
 	var obstacleAmount = Math.floor(Math.random()*10+5);
 	for(var i = 0; i < obstacleAmount; i++){
 		var obstaclePosition = [];
@@ -173,6 +180,8 @@ Game.prototype.reset = function(){
 	this.toxicBarrel = new ToxicBarrel(this, this.getCanvasContext(), [525, 100]);
 	this.selectedBuilding = null;
 	this.money = 0;
+	this.powerStation = null;
+	this.power = 0;
 	this.addStructures();
 }
 
@@ -227,6 +236,29 @@ Game.prototype.buildEntity = function(tile){
 			built = true;
 			this.money -= this.priceMoneyPrinter;
 			break;
+		case this.BuildingEnum.generator:
+			if(this.money < this.priceGenerator)
+				break;
+			boardTile.addEntity(new Generator(game, game.getCanvasContext(), tile));
+			built = true;
+			this.money -= this.priceGenerator;
+			break;
+		case this.BuildingEnum.transformer:
+			if(this.money < this.priceTransformer)
+				break;
+			boardTile.addEntity(new Transformer(game, game.getCanvasContext(), tile));
+			built = true;
+			this.money -= this.priceTransformer;
+			this.updatePowerConnectivity();
+			break;
+		case this.BuildingEnum.transmitionTower:
+			if(this.money < this.priceTransmitionTower)
+				break;
+			boardTile.addEntity(new TransmitionTower(game, game.getCanvasContext(), tile));
+			built = true;
+			this.money -= this.priceTransmitionTower;
+			this.updatePowerConnectivity();
+			break;
 	}
 	
 	if(built){
@@ -273,6 +305,21 @@ Game.prototype.chooseSelectedBuilding = function(building){
 			this.building = true;
 			this.activateUIBuilding(5);
 			break;
+		case this.BuildingEnum.generator:
+			this.selectedBuilding = this.BuildingEnum.generator;
+			this.building = true;
+			this.activateUIBuilding(6);
+			break;
+		case this.BuildingEnum.transformer:
+			this.selectedBuilding = this.BuildingEnum.transformer;
+			this.building = true;
+			this.activateUIBuilding(7);
+			break;
+		case this.BuildingEnum.transmitionTower:
+			this.selectedBuilding = this.BuildingEnum.transmitionTower;
+			this.building = true;
+			this.activateUIBuilding(8);
+			break;
 		case null:
 			this.selectedBuilding = null;
 			this.building = false;
@@ -297,13 +344,16 @@ Game.prototype.addUIElements = function(){
 	this.uiBuildings.push(new UIBuilding(uiBuildingsPos, "Images/storageTank.svg", this.getCanvasContext(), this.priceStorageTank, 4));
 	this.uiBuildings.push(new UIBuilding(uiBuildingsPos, "Images/transmitter.svg", this.getCanvasContext(), this.priceTransmitter, 5));
 	this.uiBuildings.push(new UIBuilding(uiBuildingsPos, "Images/moneyPrinter.svg", this.getCanvasContext(), this.priceMoneyPrinter, 6));
+	this.uiBuildings.push(new UIBuilding(uiBuildingsPos, "Images/generator.svg", this.getCanvasContext(), this.priceGenerator, 7));
+	this.uiBuildings.push(new UIBuilding(uiBuildingsPos, "Images/transformer.svg", this.getCanvasContext(), this.priceTransformer, 8));
+	this.uiBuildings.push(new UIBuilding(uiBuildingsPos, "Images/transmitionTower.svg", this.getCanvasContext(), this.priceTransmitionTower, 9));
 }
 
 Game.prototype.drawUI = function(){
 	for(var i = 0; i < this.uiBuildings.length; i++)
 		this.uiBuildings[i].draw();
 	this.getCanvasContext().font = "20px Arial";
-	this.getCanvasContext().fillText(Math.floor(this.money) + "$", 800, 600);
+	this.getCanvasContext().fillText(Math.floor(this.money) + "$", 1000, 550);
 	this.toxicBarrel.drawFluidFillText();
 	this.player.drawFluidFillText();
 	for(var i = 0; i < this.cars.length; i++)
@@ -315,6 +365,19 @@ Game.prototype.drawUI = function(){
 				continue;
 			if(building instanceof StorageTank)
 				building.drawFluidFillText();
+		}
+	}
+	this.powerStation.drawPowerAmountText();
+}
+
+Game.prototype.updatePowerConnectivity = function(){
+	for(var i = 0; i < this.board.sizeX; i++){
+		for(var j = 0; j < this.board.sizeY; j++){
+			var building = this.board.getTile([i,j]).getBuilding();
+			if(building == null)
+				continue;
+			if(building instanceof TransmitionTower)
+				building.checkConnectivity();
 		}
 	}
 }

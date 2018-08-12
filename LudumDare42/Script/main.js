@@ -97,6 +97,15 @@ window.onkeydown = function(event){
 			case 54:
 				game.chooseSelectedBuilding(game.BuildingEnum.moneyPrinter);
 				break;
+			case 55:
+				game.chooseSelectedBuilding(game.BuildingEnum.generator);
+				break;
+			case 56:
+				game.chooseSelectedBuilding(game.BuildingEnum.transformer);
+				break;
+			case 57:
+				game.chooseSelectedBuilding(game.BuildingEnum.transmitionTower);
+				break;
 			case 27:
 				game.chooseSelectedBuilding(null);
 				break;
