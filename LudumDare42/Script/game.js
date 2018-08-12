@@ -2,7 +2,7 @@ function Game(canvas){
 	this.START_GAME_CAMERA_PAN_SPEED = 5;
 	this.CAR_SPAWN_POSITION = [1209, -100];
 	
-	this.BuildingEnum = Object.freeze({"pipe": 1, "input": 2, "output": 3, "storageTank": 4});
+	this.BuildingEnum = Object.freeze({"pipe": 1, "input": 2, "output": 3, "storageTank": 4, "transmitter": 5});
 	
 	this.startGameCameraPanProgress = 0;
 	this.canvas = canvas;
@@ -14,12 +14,14 @@ function Game(canvas){
 	this.building = false;
 	this.selectedBuilding = null;
 	this.uiBuildings = [];
+	this.transmitterCount = 0;
 	
 	this.money = 50000;
 	this.pricePipe = 5;
 	this.priceInput = 50;
 	this.priceOutput = 25;
 	this.priceStorageTank = 15;
+	this.priceTransmitter = 35;
 	
 	this.computePositions();
 	this.board = new Board(this, this.canvas, [720, 65]);
@@ -51,7 +53,7 @@ Game.prototype.update = function(){
 	this.board.update();
 	
 	//Car spawn chance
-	if(Math.floor(Math.random()*1000) == 950)
+	if(Math.floor(Math.random()*1000) >= 999 - 1*this.transmitterCount)
 		this.spawnCar();
 	
 	for(var i = 0; i < this.cars.length; i++){
@@ -132,6 +134,8 @@ Game.prototype.addStructures = function(){
 Game.prototype.spawnCar = function(){
 	var impossibleTiles = [];
 	for(var i = 0; i < this.cars.length; i++){
+		if(this.cars[i].leaving)
+			continue;
 		var parkingTile = this.cars[i].parkingTileY;
 		impossibleTiles.push(parkingTile - 2);
 		impossibleTiles.push(parkingTile - 1);
@@ -199,6 +203,14 @@ Game.prototype.buildEntity = function(tile){
 			built = true;
 			this.money -= this.priceStorageTank;
 			break;
+		case this.BuildingEnum.transmitter:
+			if(this.money < this.priceTransmitter)
+				break;
+			boardTile.addEntity(new Transmitter(game, game.getCanvasContext(), tile));
+			built = true;
+			this.money -= this.priceTransmitter;
+			this.transmitterCount++;
+			break;
 	}
 	
 	if(built){
@@ -235,6 +247,11 @@ Game.prototype.chooseSelectedBuilding = function(building){
 			this.building = true;
 			this.activateUIBuilding(3);
 			break;
+		case this.BuildingEnum.transmitter:
+			this.selectedBuilding = this.BuildingEnum.transmitter;
+			this.building = true;
+			this.activateUIBuilding(4);
+			break;
 		case null:
 			this.selectedBuilding = null;
 			this.building = false;
@@ -257,6 +274,7 @@ Game.prototype.addUIElements = function(){
 	this.uiBuildings.push(new UIBuilding(uiBuildingsPos, "Images/input.svg", this.getCanvasContext(), this.priceInput, 2));
 	this.uiBuildings.push(new UIBuilding(uiBuildingsPos, "Images/output.svg", this.getCanvasContext(), this.priceOutput, 3));
 	this.uiBuildings.push(new UIBuilding(uiBuildingsPos, "Images/storageTank.svg", this.getCanvasContext(), this.priceStorageTank, 4));
+	this.uiBuildings.push(new UIBuilding(uiBuildingsPos, "Images/transmitter.svg", this.getCanvasContext(), this.priceTransmitter, 5));
 }
 
 Game.prototype.drawUI = function(){
