@@ -94,6 +94,9 @@ window.onkeydown = function(event){
 			case 53:
 				game.chooseSelectedBuilding(game.BuildingEnum.transmitter);
 				break;
+			case 54:
+				game.chooseSelectedBuilding(game.BuildingEnum.moneyPrinter);
+				break;
 			case 27:
 				game.chooseSelectedBuilding(null);
 				break;

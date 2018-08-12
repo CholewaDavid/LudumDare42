@@ -2,7 +2,7 @@ function Game(canvas){
 	this.START_GAME_CAMERA_PAN_SPEED = 5;
 	this.CAR_SPAWN_POSITION = [1209, -100];
 	
-	this.BuildingEnum = Object.freeze({"pipe": 1, "input": 2, "output": 3, "storageTank": 4, "transmitter": 5});
+	this.BuildingEnum = Object.freeze({"pipe": 1, "input": 2, "output": 3, "storageTank": 4, "transmitter": 5, "moneyPrinter": 6});
 	
 	this.startGameCameraPanProgress = 0;
 	this.canvas = canvas;
@@ -18,10 +18,11 @@ function Game(canvas){
 	
 	this.money = 50000;
 	this.pricePipe = 5;
-	this.priceInput = 50;
+	this.priceInput = 75;
 	this.priceOutput = 25;
 	this.priceStorageTank = 15;
 	this.priceTransmitter = 35;
+	this.priceMoneyPrinter = 50;
 	
 	this.computePositions();
 	this.board = new Board(this, this.canvas, [720, 65]);
@@ -211,6 +212,13 @@ Game.prototype.buildEntity = function(tile){
 			this.money -= this.priceTransmitter;
 			this.transmitterCount++;
 			break;
+		case this.BuildingEnum.moneyPrinter:
+			if(this.money < this.priceMoneyPrinter)
+				break;
+			boardTile.addEntity(new MoneyPrinter(game, game.getCanvasContext(), tile));
+			built = true;
+			this.money -= this.priceMoneyPrinter;
+			break;
 	}
 	
 	if(built){
@@ -252,6 +260,11 @@ Game.prototype.chooseSelectedBuilding = function(building){
 			this.building = true;
 			this.activateUIBuilding(4);
 			break;
+		case this.BuildingEnum.moneyPrinter:
+			this.selectedBuilding = this.BuildingEnum.moneyPrinter;
+			this.building = true;
+			this.activateUIBuilding(5);
+			break;
 		case null:
 			this.selectedBuilding = null;
 			this.building = false;
@@ -275,6 +288,7 @@ Game.prototype.addUIElements = function(){
 	this.uiBuildings.push(new UIBuilding(uiBuildingsPos, "Images/output.svg", this.getCanvasContext(), this.priceOutput, 3));
 	this.uiBuildings.push(new UIBuilding(uiBuildingsPos, "Images/storageTank.svg", this.getCanvasContext(), this.priceStorageTank, 4));
 	this.uiBuildings.push(new UIBuilding(uiBuildingsPos, "Images/transmitter.svg", this.getCanvasContext(), this.priceTransmitter, 5));
+	this.uiBuildings.push(new UIBuilding(uiBuildingsPos, "Images/moneyPrinter.svg", this.getCanvasContext(), this.priceMoneyPrinter, 6));
 }
 
 Game.prototype.drawUI = function(){
