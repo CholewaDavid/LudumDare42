@@ -12,10 +12,41 @@ window.onload = function(){
 			var x = (event.clientX - rect.left) + game.board.pos[0] - 120;
 			var y = (event.clientY - rect.top) + game.board.pos[1] - 65;
 			var clickedTile = game.board.convertPosToTile([x, y]);
-			if(clickedTile[0] < 0 || clickedTile[1] < 0 || clickedTile[0] >= game.board.sizeX || clickedTile[1] >= game.board.sizeY)
-				return;
-			game.board.getTile(clickedTile).addEntity(new Pipe(game, game.getCanvasContext(), clickedTile));
-			//console.log(clickedTile);
+			var clickedCar = false;
+			if(clickedTile[0] < 0 || clickedTile[1] < 0 || clickedTile[0] >= game.board.sizeX || clickedTile[1] >= game.board.sizeY){
+				//Clicked road?
+				if(clickedTile[0] == game.board.sizeX)
+					clickedCar = true;
+				else
+					return;
+			}
+			var boardTile = game.board.getTile(clickedTile);
+			
+			if(game.building){
+				if(clickedCar || boardTile.getBuilding() != null)
+					return;
+				game.buildEntity(clickedTile);
+			}
+			else{
+				//Clicked tile near player
+				if(clickedTile[0] < game.player.tile[0] - 1 || clickedTile[0] > game.player.tile[0] + 1 || clickedTile[1] < game.player.tile[1] - 1 || clickedTile[1] > game.player.tile[1] + 1)
+					return;
+				//Clicked car?
+				if(clickedCar){
+					for(var i = 0; i < game.cars.length; i++){
+						if(game.cars[i].parkingTileY == clickedTile[1] && game.cars[i].waiting){
+							game.player.fluid -= game.player.fluid - game.cars[i].addFluid(game.player.fluid);
+						}
+					}
+				}
+				//Clicked building?
+				var building = boardTile.getBuilding();
+				if(building == null)
+					return;
+				if(building instanceof Input){
+					game.player.takeFluid(building.takeFluid(game.player.canTakeFluidAmount()));
+				}
+			}
 		}
 	}, false);
 	
@@ -44,6 +75,18 @@ window.onkeydown = function(event){
 			case 68:
 			case 39:
 				game.player.enableMovementDirection(game.player.MovementEnum.right);
+				break;
+			case 49:
+				game.selectedBuilding = game.BuildingEnum.pipe;
+				game.building = true;
+				break;
+			case 50:
+				game.selectedBuilding = game.BuildingEnum.input;
+				game.building = true;
+				break;
+			case 51:
+				game.selectedBuilding = game.BuildingEnum.output;
+				game.building = true;
 				break;
 		}
 		break;

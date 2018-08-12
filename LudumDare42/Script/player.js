@@ -16,9 +16,11 @@ Player.prototype = Object.create(Entity.prototype);
 
 Player.prototype.draw = function(){
 	this.sprite.position = this.position.slice();
-	this.canvasContext.translate(0,-this.sprite.image.height);
+	this.canvasContext.translate(-this.sprite.image.width/2,-this.sprite.image.height);
 	this.sprite.draw();
-	this.canvasContext.translate(0,this.sprite.image.height);
+	this.canvasContext.font = "20px Arial";
+	this.canvasContext.fillText(Math.floor(this.fluid) + "/" + this.MAXIMUM_FLUID, this.position[0], this.position[1]);
+	this.canvasContext.translate(this.sprite.image.width/2,this.sprite.image.height);
 }
 
 Player.prototype.update = function(){
@@ -40,17 +42,17 @@ Player.prototype.move = function(){
 		targetTile[0] = 0;
 		targetPos[0] = this.game.board.getTileBox([0,1])[0];
 	}
-	else if(targetTile[0] >= this.game.board.sizeX - 1){
+	else if(targetTile[0] > this.game.board.sizeX - 1){
 		targetTile[0] = this.game.board.sizeX - 1;
-		targetPos[0] = this.game.board.getTileBox([targetTile[0], 1])[0];
+		targetPos[0] = this.game.board.getTileBox([targetTile[0], 1])[2];
 	}
 	if(targetTile[1] < 0){
 		targetTile[1] = 0;
 		targetPos[1] = this.game.board.getTileBox([1,0])[1];
 	}
-	else if(targetTile[1] >= this.game.board.sizeY - 1){
+	else if(targetTile[1] > this.game.board.sizeY - 1){
 		targetTile[1] = this.game.board.sizeY - 1;
-		targetPos[1] = this.game.board.getTileBox([1, targetTile[1]])[1];
+		targetPos[1] = this.game.board.getTileBox([1, targetTile[1]])[3];
 	}
 	
 	//Going to another tile
@@ -120,4 +122,8 @@ Player.prototype.takeFluid = function(amount){
 		this.fluid = this.MAXIMUM_FLUID;
 	}
 	return amount;
+}
+
+Player.prototype.canTakeFluidAmount = function(){
+	return this.MAXIMUM_FLUID - this.fluid;
 }

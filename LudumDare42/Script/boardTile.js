@@ -12,7 +12,9 @@ BoardTile.prototype.draw = function(){
 }
 
 BoardTile.prototype.update = function(){
-
+	var building = this.getBuilding();
+	if(building != null)
+		building.update();
 }
 
 BoardTile.prototype.addEntity = function(entity){

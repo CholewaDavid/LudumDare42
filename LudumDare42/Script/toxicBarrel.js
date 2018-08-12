@@ -3,7 +3,7 @@ function ToxicBarrel(game, canvasContext, pos){
 	
 	this.MAXIMUM_FLUID = 1000;
 	this.fluid = 0;
-	this.fillSpeed = 1;
+	this.fillSpeed = 0.1;
 	this.sprite = new Sprite(this.canvasContext, this.position, "Images/toxicBarrel.svg");
 }
 
@@ -36,5 +36,5 @@ ToxicBarrel.prototype.addFluid = function(amount){
 
 ToxicBarrel.prototype.drawFluidFillText = function(){
 	this.canvasContext.font = "20px Arial";
-	this.canvasContext.fillText(this.fluid + "/" + this.MAXIMUM_FLUID, this.position[0] + 100, this.position[1]);
+	this.canvasContext.fillText(Math.floor(this.fluid) + "/" + this.MAXIMUM_FLUID, this.position[0] + 100, this.position[1]);
 }

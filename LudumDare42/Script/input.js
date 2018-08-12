@@ -10,3 +10,7 @@ Input.prototype = Object.create(Entity.prototype);
 Input.prototype.draw = function(){
 	this.sprite.draw();
 }
+
+Input.prototype.takeFluid = function(amount){
+	return game.toxicBarrel.removeFluid(amount);
+}

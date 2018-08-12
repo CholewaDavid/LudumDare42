@@ -1,6 +1,9 @@
 function Game(canvas){
 	this.START_GAME_CAMERA_PAN_SPEED = 5;
 	this.CAR_SPAWN_POSITION = [1209, -100];
+	
+	this.BuildingEnum = Object.freeze({"pipe": 1, "input": 2, "output": 3});
+	
 	this.startGameCameraPanProgress = 0;
 	this.canvas = canvas;
 	this.scale;
@@ -8,6 +11,8 @@ function Game(canvas){
 	this.background = new Sprite(this.getCanvasContext(), [0,0], "Images/gameBackground.svg", 0);
 	this.gameOverSprite = new Sprite(this.getCanvasContext(), [13, 50], "Images/gameOver.svg", 0);
 	this.gameOver = false;
+	this.building = false;
+	this.selectedBuilding = null;
 	
 	this.computePositions();
 	this.board = new Board(this, this.canvas, [720, 65]);
@@ -35,6 +40,7 @@ Game.prototype.update = function(){
 	}
 	this.player.update();
 	this.toxicBarrel.update();
+	this.board.update();
 	
 	//Car spawn chance
 	if(Math.floor(Math.random()*1000) == 990)
@@ -137,9 +143,30 @@ Game.prototype.spawnCar = function(){
 Game.prototype.reset = function(){
 	this.runGame = false;
 	this.gameOver = false;
+	this.building = false;
 	this.board = new Board(this, this.canvas, [720, 65]);
 	this.player = new Player(this, this.getCanvasContext(), this.board.getPlayerSpawnTile());
 	this.cars = [];
 	this.toxicBarrel = new ToxicBarrel(this, this.getCanvasContext(), [525, 100]);
+	this.selectedBuilding = null;
 	this.addStructures();
+}
+
+Game.prototype.buildEntity = function(tile){
+	var boardTile = this.board.getTile(tile);
+	switch(this.selectedBuilding){
+		case this.BuildingEnum.pipe:
+			boardTile.addEntity(new Pipe(game, game.getCanvasContext(), tile));
+			break;
+		case this.BuildingEnum.input:
+			if(tile[0] != 0)
+				break;
+			boardTile.addEntity(new Input(game, game.getCanvasContext(), tile));
+			break;
+		case this.BuildingEnum.output:
+			if(tile[0] != this.board.sizeX - 1)
+				break;
+			boardTile.addEntity(new Output(game, game.getCanvasContext(), tile));
+			break;
+	}
 }
