@@ -130,6 +130,14 @@ Game.prototype.startGame = function(){
 
 Game.prototype.addStructures = function(){
 	this.board.getTile([0,7]).addEntity(new Input(this, this.getCanvasContext(), [0,7]));
+	var obstacleAmount = Math.floor(Math.random()*10+5);
+	for(var i = 0; i < obstacleAmount; i++){
+		var obstaclePosition = [];
+		obstaclePosition[0] = Math.floor(Math.random()*this.board.sizeX);
+		obstaclePosition[1] = Math.floor(Math.random()*this.board.sizeY);
+		if(this.board.getTile(obstaclePosition).getBuilding() == null)
+			this.board.getTile(obstaclePosition).addEntity(new Obstacle(this, this.getCanvasContext(), obstaclePosition, Math.floor(Math.random()*2+1)));
+	}
 }
 
 Game.prototype.spawnCar = function(){

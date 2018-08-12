@@ -55,26 +55,110 @@ Player.prototype.move = function(){
 	
 	//Going to another tile
 	if(targetTile[0] != this.tile[0] || targetTile[1] != this.tile[1]){
+		var horizontal = 0;
+		var vertical = 0;
 		//Solid obstacle
 		if(this.game.board.getTile(targetTile).isSolid()){
 			var tileEndPos = this.game.board.getTileBox(this.tile);
 			if(targetTile[0] < this.tile[0]){
-				this.position[0] = tileEndPos[0];
+				this.position[0] = tileEndPos[0] + 1;
+				horizontal = -1;
 			}
 			else if(targetTile[0] > this.tile[0]){
-				this.position[0] = tileEndPos[2];
+				this.position[0] = tileEndPos[2] - 1;
+				horizontal = 1;
 			}
 			else{
 				this.position[0] = targetPos[0];
 			}
 			if(targetTile[1] < this.tile[1]){
-				this.position[1] = tileEndPos[1];
+				this.position[1] = tileEndPos[1] + 1;
+				vertical = -1;
 			}
 			else if(targetTile[1] > this.tile[1]){
-				this.position[1] = tileEndPos[3];
+				this.position[1] = tileEndPos[3] - 1;
+				vertical = 1;
 			}
 			else{
 				this.position[1] = targetPos[1];
+			}
+			
+			//Corner stuck resolve
+			if(horizontal != 0 && vertical != 0){
+				switch(horizontal){
+					case -1:
+					switch(vertical){
+						case -1:
+							targetTile[0] += 1;
+							if(!this.game.board.getTile(targetTile).isSolid()){
+								this.position[1] = targetPos[1];
+								this.tile = targetTile.slice();
+								break;
+							}
+							targetTile[0] -= 1;
+							targetTile[1] += 1;
+							if(!this.game.board.getTile(targetTile).isSolid()){
+								this.position[0] = targetPos[0];
+								this.tile = targetTile.slice();
+								break;
+							}
+							targetTile[1] -= 1;
+							break;
+						case 1:
+							targetTile[0] += 1;
+							if(!this.game.board.getTile(targetTile).isSolid()){
+								this.position[1] = targetPos[1];
+								this.tile = targetTile.slice();
+								break;
+							}
+							targetTile[0] -= 1;
+							targetTile[1] -= 1;
+							if(!this.game.board.getTile(targetTile).isSolid()){
+								this.position[0] = targetPos[0];
+								this.tile = targetTile.slice();
+								break;
+							}
+							targetTile[1] += 1;
+							break;
+					}
+					break;
+					case 1:
+					switch(vertical){
+						case -1:
+							targetTile[0] -= 1;
+							if(!this.game.board.getTile(targetTile).isSolid()){
+								this.position[1] = targetPos[1];
+								this.tile = targetTile.slice();
+								break;
+							}
+							targetTile[0] += 1;
+							targetTile[1] += 1;
+							if(!this.game.board.getTile(targetTile).isSolid()){
+								this.position[0] = targetPos[0];
+								this.tile = targetTile.slice();
+								break;
+							}
+							targetTile[1] -= 1;
+							break;
+						case 1:
+							targetTile[0] -= 1;
+							if(!this.game.board.getTile(targetTile).isSolid()){
+								this.position[1] = targetPos[1];
+								this.tile = targetTile.slice();
+								break;
+							}
+							targetTile[0] += 1;
+							targetTile[1] -= 1;
+							if(!this.game.board.getTile(targetTile).isSolid()){
+								this.position[0] = targetPos[0];
+								this.tile = targetTile.slice();
+								break;
+							}
+							targetTile[1] += 1;
+							break;
+					}
+					break;
+				}
 			}
 		}
 		else{
@@ -106,6 +190,10 @@ Player.prototype.getMovementVector = function(){
 
 Player.prototype.enableMovementDirection = function(dir){
 	this.movementDirections[dir-1] = true;
+	if(dir > 1)
+		this.disableMovementDirection(dir-2);
+	else
+		this.disableMovementDirection(dir+2);
 }
 
 Player.prototype.disableMovementDirection = function(dir){
