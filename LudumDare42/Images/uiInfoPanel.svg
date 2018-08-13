@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.6"
-     inkscape:cx="43.920517"
-     inkscape:cy="38.148715"
+     inkscape:zoom="7.9195959"
+     inkscape:cx="26.674954"
+     inkscape:cy="46.341345"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -60,7 +60,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -76,19 +76,21 @@
        height="87.695801"
        x="-0.16135201"
        y="1022.3388" />
-    <rect
-       style="opacity:1;fill:#797979;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0.5;stroke-opacity:1"
-       id="rect4749"
-       width="19.642857"
-       height="18.214285"
-       x="3.25"
-       y="1041.2661" />
-    <rect
-       y="1079.8375"
-       x="3.25"
-       height="18.214285"
-       width="19.642857"
-       id="rect4751"
-       style="opacity:1;fill:#797979;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0.5;stroke-opacity:1" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:16.81889343px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#f6ff60;fill-opacity:1;stroke:none;stroke-width:0.70078725px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="6.9490728"
+       y="1055.4154"
+       id="text4753"><tspan
+         sodipodi:role="line"
+         id="tspan4751"
+         x="6.9490728"
+         y="1055.4154"
+         style="stroke-width:0.70078725px">$</tspan></text>
+    <path
+       style="fill:#fffc05;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.90282607px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 11.813099,1081.0368 h 5.038091 l -2.781024,4.2723 h 1.531579 l -2.982553,5.3202 h 1.289755 l -5.1590082,6.5695 1.7734092,-5.0783 H 9.1932912 L 11.12792,1086.76 H 9.7575558 Z"
+       id="path4798"
+       inkscape:connector-curvature="0" />
   </g>
 </svg>

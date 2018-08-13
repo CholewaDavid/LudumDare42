@@ -10,6 +10,7 @@ function Player(game, canvasContext, tile){
 	this.sprite = new Sprite(this.canvasContext, this.position, "Images/player.svg");
 	this.speed = 5;
 	this.fluid = 0;
+	this.oldFluid = 0;
 }
 
 Player.prototype = Object.create(Entity.prototype);
@@ -22,6 +23,11 @@ Player.prototype.draw = function(){
 }
 
 Player.prototype.update = function(){
+	if(this.fluid != this.oldFluid){
+		var audio = new Audio("Sounds/liquid.ogg");
+		audio.play();
+		this.oldFluid = this.fluid;
+	}
 	this.move();
 }
 

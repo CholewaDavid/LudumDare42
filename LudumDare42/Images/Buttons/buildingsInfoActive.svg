@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="86.612465mm"
+   height="15.151371mm"
+   viewBox="0 0 86.612466 15.151371"
+   version="1.1"
+   id="svg822"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="buildingsInfoActive.svg">
+  <defs
+     id="defs816" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.8"
+     inkscape:cx="112.03705"
+     inkscape:cy="31.494107"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata819">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-91.089005,-227.72558)">
+    <path
+       style="fill:#32ff11;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 105.43146,242.79338 c 2.1552,-0.26613 21.08312,-0.85647 24.0899,-0.52238 3.00678,0.33408 4.30972,0.50113 4.44335,0 0.13364,-0.50113 9.82216,-0.70158 13.49712,-0.0668 3.67495,0.63477 18.40818,0.4009 18.94272,0.0668 0.53454,-0.33409 11.55942,-0.0668 11.29214,-0.66818 -0.26726,-0.60135 0.33409,-2.13815 -3.20723,-1.40316 -3.54133,0.73499 -11.96031,1.80407 -15.23437,1.06908 -3.27405,-0.73499 -9.55488,-0.86863 -11.09168,-0.86863 -1.5368,0 -15.90254,1.00226 -16.16981,0.40091 -0.26727,-0.60136 -16.81403,-0.41849 -20.84702,0.33408 -4.88773,0.91207 -23.478454,-2.53668 -19.504951,-1.13265 2.039442,0.72064 9.050011,3.37622 13.789831,2.79093 z"
+       id="path4793"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssssss" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:14.11111069px;line-height:125%;font-family:'Franklin Gothic Heavy';-inkscape-font-specification:'Franklin Gothic Heavy, Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="102.79889"
+       y="237.44699"
+       id="text827"><tspan
+         sodipodi:role="line"
+         id="tspan825"
+         x="102.79889"
+         y="237.44699"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:14.11111069px;font-family:'Franklin Gothic Heavy';-inkscape-font-specification:'Franklin Gothic Heavy,  Bold';stroke-width:0.26458332px">Buildings</tspan></text>
+  </g>
+</svg>

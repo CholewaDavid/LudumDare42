@@ -68,7 +68,7 @@ Game.prototype.update = function(){
 	this.board.update();
 	
 	//Car spawn chance
-	if(Math.floor(Math.random()*1000) >= 999 - 1*this.transmitterCount)
+	if(Math.floor(Math.random()*1000) >= 995 - 2*this.transmitterCount)
 		this.spawnCar();
 	
 	for(var i = 0; i < this.cars.length; i++){
@@ -245,6 +245,8 @@ Game.prototype.buildEntity = function(tile){
 			boardTile.addEntity(new Pipe(game, game.getCanvasContext(), tile));
 			built = true;
 			this.money -= this.pricePipe;
+			var audio = new Audio("Sounds/build.ogg");
+			audio.play();			
 			break;
 		case this.BuildingEnum.input:
 			if(tile[0] != 0)
@@ -254,6 +256,8 @@ Game.prototype.buildEntity = function(tile){
 			boardTile.addEntity(new Input(game, game.getCanvasContext(), tile));
 			built = true;
 			this.money -= this.priceInput;
+			var audio = new Audio("Sounds/build.ogg");
+			audio.play();		
 			break;
 		case this.BuildingEnum.output:
 			if(tile[0] != this.board.sizeX - 1)
@@ -263,6 +267,8 @@ Game.prototype.buildEntity = function(tile){
 			boardTile.addEntity(new Output(game, game.getCanvasContext(), tile));
 			built = true;
 			this.money -= this.priceOutput;
+			var audio = new Audio("Sounds/build.ogg");
+			audio.play();		
 			break;
 		case this.BuildingEnum.storageTank:
 			if(this.money < this.priceStorageTank)
@@ -270,6 +276,8 @@ Game.prototype.buildEntity = function(tile){
 			boardTile.addEntity(new StorageTank(game, game.getCanvasContext(), tile));
 			built = true;
 			this.money -= this.priceStorageTank;
+			var audio = new Audio("Sounds/build.ogg");
+			audio.play();		
 			break;
 		case this.BuildingEnum.transmitter:
 			if(this.money < this.priceTransmitter)
@@ -277,6 +285,8 @@ Game.prototype.buildEntity = function(tile){
 			boardTile.addEntity(new Transmitter(game, game.getCanvasContext(), tile));
 			built = true;
 			this.money -= this.priceTransmitter;
+			var audio = new Audio("Sounds/build.ogg");
+			audio.play();		
 			break;
 		case this.BuildingEnum.moneyPrinter:
 			if(this.money < this.priceMoneyPrinter)
@@ -284,6 +294,8 @@ Game.prototype.buildEntity = function(tile){
 			boardTile.addEntity(new MoneyPrinter(game, game.getCanvasContext(), tile));
 			built = true;
 			this.money -= this.priceMoneyPrinter;
+			var audio = new Audio("Sounds/build.ogg");
+			audio.play();		
 			break;
 		case this.BuildingEnum.generator:
 			if(this.money < this.priceGenerator)
@@ -291,6 +303,8 @@ Game.prototype.buildEntity = function(tile){
 			boardTile.addEntity(new Generator(game, game.getCanvasContext(), tile));
 			built = true;
 			this.money -= this.priceGenerator;
+			var audio = new Audio("Sounds/build.ogg");
+			audio.play();		
 			break;
 		case this.BuildingEnum.transformer:
 			if(this.money < this.priceTransformer)
@@ -299,6 +313,8 @@ Game.prototype.buildEntity = function(tile){
 			built = true;
 			this.money -= this.priceTransformer;
 			this.updatePowerConnectivity();
+			var audio = new Audio("Sounds/build.ogg");
+			audio.play();		
 			break;
 		case this.BuildingEnum.transmitionTower:
 			if(this.money < this.priceTransmitionTower)
@@ -307,6 +323,8 @@ Game.prototype.buildEntity = function(tile){
 			built = true;
 			this.money -= this.priceTransmitionTower;
 			this.updatePowerConnectivity();
+			var audio = new Audio("Sounds/build.ogg");
+			audio.play();		
 			break;
 	}
 	
@@ -502,7 +520,6 @@ Game.prototype.drawUI = function(){
 		if(!(selectedTile[0] < 0 || selectedTile[0] >= this.board.sizeX || selectedTile[1] < 0 || selectedTile[1] >= this.board.sizeY)){
 			this.buildingGhostSprite.position = this.board.convertTileToPos(selectedTile).slice();
 			this.buildingGhostSprite.draw();
-			console.log(this.buildingGhostSprite.position);
 		}
 	}
 	

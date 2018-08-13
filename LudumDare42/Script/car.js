@@ -12,6 +12,13 @@ function Car(game, canvasContext, pos, parkingPosY, parkingTileY){
 	this.parkingPosY = parkingPosY;
 	this.parkingTileY = parkingTileY;
 	this.fluid = 0;
+	
+	this.audioLoop = new Audio("Sounds/carDrive.ogg");
+	this.audioLoop.addEventListener('ended', function() {
+			this.currentTime = 0;
+			this.play();
+	}, false);
+	this.audioLoop.play();
 }
 
 Car.prototype = Object.create(Entity.prototype);
@@ -27,6 +34,13 @@ Car.prototype.update = function(){
 		if(this.MAX_WAITING <= this.waitingTimer || this.fluid >= this.MAXIMUM_FLUID){
 			this.waiting = false;
 			this.leaving = true;
+			this.audioLoop.pause();
+			this.audioLoop = new Audio("Sounds/carDrive.ogg");
+			this.audioLoop.addEventListener('ended', function() {
+					this.currentTime = 0;
+					this.play();
+			}, false);
+			this.audioLoop.play();
 		}
 	}	
 	else{
@@ -42,6 +56,7 @@ Car.prototype.move = function(){
 	if(this.position[1] >= this.parkingPosY){
 		this.position[1] = this.parkingPosY;
 		this.waiting = true;
+		this.audioLoop.pause();
 	}
 }
 
