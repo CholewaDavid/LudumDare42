@@ -12,11 +12,16 @@ function UIBuilding(pos, image, context, price, id){
 	this.id = id;
 	this.price = price;
 	this.active = false;
+	this.disabled = false;
 }
 
 UIBuilding.prototype.draw = function(){
-	if(this.active)
-		this.canvasContext.fillStyle = "#FF0000";
+	if(this.active && this.disabled)
+		this.canvasContext.fillStyle = "#880000";
+	else if(!this.active && this.disabled)
+		this.canvasContext.fillStyle = "#220000";
+	else if(!this.active && !this.disabled)
+		this.canvasContext.fillStyle = "#00AA00";
 	else
 		this.canvasContext.fillStyle = "#00FF00";
 	this.canvasContext.fillRect(this.position[0], this.position[1], this.SIZE, this.SIZE);

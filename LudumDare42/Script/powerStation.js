@@ -12,6 +12,6 @@ PowerStation.prototype.draw = function(){
 }
 
 PowerStation.prototype.drawPowerAmountText = function(){
-	this.canvasContext.font = "15px Arial";
-	this.canvasContext.fillText(this.game.power, this.position[0], this.position[1]);
+	this.canvasContext.font = "18px Arial";
+	this.canvasContext.fillText(this.game.usedPower + "/" + this.game.power, 630, 80);
 }

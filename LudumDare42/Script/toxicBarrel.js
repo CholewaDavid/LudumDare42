@@ -36,6 +36,6 @@ ToxicBarrel.prototype.addFluid = function(amount){
 }
 
 ToxicBarrel.prototype.drawFluidFillText = function(){
-	this.canvasContext.font = "20px Arial";
-	this.canvasContext.fillText(Math.floor(this.fluid) + "/" + this.MAXIMUM_FLUID, this.position[0] + 100, this.position[1]);
+	this.canvasContext.font = "18px Arial";
+	this.canvasContext.fillText(Math.floor(this.fluid) + "/" + this.MAXIMUM_FLUID, 630, 40);
 }

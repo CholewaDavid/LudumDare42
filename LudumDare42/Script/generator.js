@@ -5,6 +5,7 @@ function Generator(game, canvasContext, tile){
 	
 	this.tile = tile.slice();
 	this.sprite = new Sprite(this.canvasContext, this.position, "Images/generator.svg");
+	this.powerWarningSprite = new Sprite(this.canvasContext, this.position, "Images/noPower.svg");
 	this.connected = false;
 }
 
@@ -26,7 +27,7 @@ Generator.prototype.checkConnection = function(){
 			if(i == 0 && j == 0)
 				continue;
 			
-			if(this.tile[0] + i < 0 || this.tile[0] + i > this.game.board.sizeX || this.tile[1] + j < 0 || this.tile[1] + j > this.game.board.sizeY)
+			if(this.tile[0] + i < 0 || this.tile[0] + i >= this.game.board.sizeX || this.tile[1] + j < 0 || this.tile[1] + j >= this.game.board.sizeY)
 				continue;
 			
 			var building = this.game.board.getTile([this.tile[0]+i, this.tile[1]+j]).getBuilding();
@@ -39,4 +40,9 @@ Generator.prototype.checkConnection = function(){
 			}
 		}
 	}
+}
+
+Generator.prototype.showWarning = function(){
+	if(!this.connected)
+		this.powerWarningSprite.draw();
 }

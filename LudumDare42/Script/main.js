@@ -2,11 +2,13 @@ var entryMenu = null;
 var game = null;
 var entryMenuIntervalId = null;
 var windowDrawInterval = 1000/60;
+var mousePosition = [];
 var CurrentModeEnum = Object.freeze({"game": 1, "menu": 2})
 var currentMode = CurrentModeEnum.menu;
 
 window.onload = function(){
 	window.setTimeout(canvasLoad, 1);
+	document.onmousemove = handleMouseMove;
 	document.getElementById("canvasGame").addEventListener('click', function(event) {
 		if(currentMode == CurrentModeEnum.game && game.runGame){
 			var rect = this.getBoundingClientRect();
@@ -52,6 +54,9 @@ window.onload = function(){
 			}
 		}
 	}, false);
+	
+	document.getElementById("canvasGame").addEventListener("mouseWheel", MouseWheelHandler, false);
+	document.getElementById("canvasGame").addEventListener("DOMMouseScroll", MouseWheelHandler, false);
 	
 	document.getElementById("canvasGame").getContext("2d").save();
 	game = new Game(document.getElementById("canvasGame"));
@@ -165,4 +170,18 @@ function getCursorPosition(canvas, event) {
 function canvasLoad(){
 	document.getElementById("canvasGame").width = 799.99999;
 	document.getElementById("canvasGame").width = 800;
+}
+
+function MouseWheelHandler(e){
+	if(currentMode != 1 || !game.runGame)
+		return;
+	var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+	game.selectNextBuilding(delta);
+}
+
+function handleMouseMove(event){
+	mousePosition[0] = event.clientX;
+	mousePosition[1] = event.clientY;
+	mousePosition[0] -= document.getElementById("canvasGame").getBoundingClientRect().left;
+	mousePosition[1] -= document.getElementById("canvasGame").getBoundingClientRect().top;
 }

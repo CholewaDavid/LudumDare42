@@ -4,6 +4,7 @@ function TransmitionTower(game, canvasContext, tile){
 	this.RANGE = 5;
 	this.tile = tile.slice();
 	this.sprite = new Sprite(this.canvasContext, this.position, "Images/transmitionTower.svg");
+	this.powerWarningSprite = new Sprite(this.canvasContext, this.position, "Images/noPower.svg");
 	this.connected = false;
 	this.connectedBuildings = [];
 	this.findPower();
@@ -98,4 +99,9 @@ TransmitionTower.prototype.findPower = function(){
 			}
 		}
 	}
+}
+
+TransmitionTower.prototype.showWarning = function(){
+	if(!this.connected)
+		this.powerWarningSprite.draw();
 }

@@ -6,6 +6,7 @@ function StorageTank(game, canvasContext, tile){
 	
 	this.tile = tile.slice();
 	this.sprite = new Sprite(this.canvasContext, this.position, "Images/storageTank.svg");
+	this.fluidWarningSprite = new Sprite(this.canvasContext, this.position, "Images/noFluid.svg");
 	this.connected = false;
 	this.fluid = 0;
 }
@@ -65,4 +66,9 @@ StorageTank.prototype.drawFluidFillText = function(){
 	this.canvasContext.textAlign = "center";
 	this.canvasContext.fillText(Math.floor(this.fluid), this.position[0] + 16, this.position[1] + 27);
 	this.canvasContext.textAlign = "left";
+}
+
+StorageTank.prototype.showWarning = function(){
+	if(!this.connected)
+		this.fluidWarningSprite.draw();
 }

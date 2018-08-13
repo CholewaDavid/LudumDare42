@@ -3,6 +3,7 @@ function Transformer(game, canvasContext, tile){
 	
 	this.tile = tile.slice();
 	this.sprite = new Sprite(this.canvasContext, this.position, "Images/transformer.svg");
+	this.powerWarningSprite = new Sprite(this.canvasContext, this.position, "Images/noPower.svg");
 	this.connected = false;
 }
 
@@ -14,4 +15,9 @@ Transformer.prototype.draw = function(){
 
 Transformer.prototype.update = function(){
 
+}
+
+Transformer.prototype.showWarning = function(){
+	if(!this.connected)
+		this.powerWarningSprite.draw();
 }
