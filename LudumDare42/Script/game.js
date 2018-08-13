@@ -24,6 +24,7 @@ function Game(canvas){
 	this.warningTimer = 0;
 	this.showingWarning = false;
 	this.lastSelectedBuilding = 0;
+	this.audioLoop = null;
 	
 	this.money = 20;
 	this.pricePipe = 2;
@@ -68,7 +69,7 @@ Game.prototype.update = function(){
 	this.board.update();
 	
 	//Car spawn chance
-	if(Math.floor(Math.random()*1000) >= 995 - 2*this.transmitterCount)
+	if(Math.floor(Math.random()*1000) >= 998 - 2*this.transmitterCount)
 		this.spawnCar();
 	
 	for(var i = 0; i < this.cars.length; i++){
@@ -144,6 +145,7 @@ Game.prototype.setGameOver = function(){
 }
 
 Game.prototype.gameOverScene = function(){
+	this.audioLoop.pause();
 	this.canvas.getContext("2d").translate(this.START_GAME_CAMERA_PAN_SPEED, 0);
 	this.startGameCameraPanProgress-=this.START_GAME_CAMERA_PAN_SPEED;
 	if(this.startGameCameraPanProgress <= 0)
@@ -171,14 +173,12 @@ Game.prototype.startGameCameraPan = function(){
 
 Game.prototype.startGame = function(){
 	this.runGame = true;
-	/*
-	this.audioLoop = new Audio("Sounds/ToxicSludge.ogg");
+	this.audioLoop = new Audio("Sounds/music.wav");
 	this.audioLoop.addEventListener('ended', function() {
 			this.currentTime = 0;
 			this.play();
 	}, false);
 	this.audioLoop.play();
-	*/
 }
 
 Game.prototype.addStructures = function(){
