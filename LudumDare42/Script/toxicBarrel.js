@@ -3,14 +3,16 @@ function ToxicBarrel(game, canvasContext, pos){
 	
 	this.MAXIMUM_FLUID = 1000;
 	this.fluid = 0;
-	this.fillSpeed = 0.1;
-	this.fillSpeedIncrease = 0.00005;
+	this.fillSpeed = 0.05;
+	this.fillSpeedIncrease = 0.000005;
 	this.sprite = new Sprite(this.canvasContext, this.position, "Images/toxicBarrel.svg");
 }
 
 ToxicBarrel.prototype = Object.create(Entity.prototype);
 
 ToxicBarrel.prototype.draw = function(){
+	this.canvasContext.fillStyle = "#0AFF05";
+	this.canvasContext.fillRect(this.position[0] + 50, this.position[1] + 290, 75, -230 * (this.fluid / this.MAXIMUM_FLUID));
 	this.sprite.draw();
 }
 

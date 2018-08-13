@@ -1,7 +1,7 @@
 function StorageTank(game, canvasContext, tile){
 	Entity.call(this, game, canvasContext, game.board.convertTileToPos(tile), true);
 	
-	this.MAX_FLUID = 100;
+	this.MAX_FLUID = 50;
 	this.FLUID_FILL_SPEED = 0.05;
 	
 	this.tile = tile.slice();

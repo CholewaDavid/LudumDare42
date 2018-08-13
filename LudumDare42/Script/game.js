@@ -26,7 +26,7 @@ function Game(canvas){
 	this.lastSelectedBuilding = 0;
 	this.audioLoop = null;
 	
-	this.money = 20;
+	this.money = 40;
 	this.pricePipe = 2;
 	this.priceInput = 75;
 	this.priceOutput = 25;
@@ -69,7 +69,7 @@ Game.prototype.update = function(){
 	this.board.update();
 	
 	//Car spawn chance
-	if(Math.floor(Math.random()*1000) >= 998 - 2*this.transmitterCount)
+	if(Math.floor(Math.random()*1000) >= 999 - 2*this.transmitterCount)
 		this.spawnCar();
 	
 	for(var i = 0; i < this.cars.length; i++){
@@ -80,6 +80,7 @@ Game.prototype.update = function(){
 	for(var i = this.cars.length - 1; i >= 0; i--){
 		if(this.cars[i].position[1] > 1000){
 			this.money += this.cars[i].getMoney();
+			this.cars[i].audioLoop.pause();
 			this.cars.splice(i, 1);
 		}
 	}
@@ -146,6 +147,9 @@ Game.prototype.setGameOver = function(){
 
 Game.prototype.gameOverScene = function(){
 	this.audioLoop.pause();
+	for(var i = 0; i < this.cars.length; i++){
+		this.cars[i].audioLoop.pause();
+	}
 	this.canvas.getContext("2d").translate(this.START_GAME_CAMERA_PAN_SPEED, 0);
 	this.startGameCameraPanProgress-=this.START_GAME_CAMERA_PAN_SPEED;
 	if(this.startGameCameraPanProgress <= 0)
@@ -185,7 +189,7 @@ Game.prototype.addStructures = function(){
 	this.board.getTile([0,7]).addEntity(new Input(this, this.getCanvasContext(), [0,7]));
 	this.powerStation = new PowerStation(this, this.getCanvasContext(), [0,2]);
 	this.board.getTile([0,2]).addEntity(this.powerStation);
-	var obstacleAmount = Math.floor(Math.random()*10+5);
+	var obstacleAmount = Math.floor(Math.random()*10+20);
 	for(var i = 0; i < obstacleAmount; i++){
 		var obstaclePosition = [];
 		obstaclePosition[0] = Math.floor(Math.random()*this.board.sizeX);
@@ -227,10 +231,12 @@ Game.prototype.reset = function(){
 	this.cars = [];
 	this.toxicBarrel = new ToxicBarrel(this, this.getCanvasContext(), [525, 100]);
 	this.selectedBuilding = null;
-	this.money = 20;
+	this.money = 40;
 	this.powerStation = null;
 	this.power = 10;
+	this.usedPower = 0;
 	this.lastSelectedBuilding = 0;
+	this.transmitterCount = 0;
 	this.warningTimer = 0;
 	this.addStructures();
 }
@@ -526,8 +532,8 @@ Game.prototype.drawUI = function(){
 	this.uiMoneyPowerSprite.draw();
 	for(var i = 0; i < this.uiBuildings.length; i++)
 		this.uiBuildings[i].draw();
-	this.getCanvasContext().font = "20px Arial";
-	this.getCanvasContext().fillText(Math.floor(this.money) + "$", 1000, 550);
+	this.getCanvasContext().font = "18px Arial";
+	this.getCanvasContext().fillText(Math.floor(this.money) + "$", 630, 120);
 	this.toxicBarrel.drawFluidFillText();
 	
 	if(this.selectedBuilding != null)

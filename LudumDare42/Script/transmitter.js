@@ -47,6 +47,6 @@ Transmitter.prototype.checkPowerConnectivity = function(){
 }
 
 Transmitter.prototype.showWarning = function(){
-	if(!this.connected)
+	if(!this.powerConnected || this.game.power < this.game.usedPower)
 		this.powerWarningSprite.draw();
 }

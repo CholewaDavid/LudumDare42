@@ -1,7 +1,7 @@
 function Player(game, canvasContext, tile){
 	Entity.call(this, game, canvasContext, game.board.convertTileToPos(tile), false);
 	
-	this.MAXIMUM_FLUID = 50;
+	this.MAXIMUM_FLUID = 20;
 	
 	this.MovementEnum = Object.freeze({"left": 1, "up": 2, "right": 3, "down": 4});
 	

@@ -2,7 +2,7 @@ function Car(game, canvasContext, pos, parkingPosY, parkingTileY){
 	Entity.call(this, game, canvasContext, pos, false);
 	
 	this.MAXIMUM_FLUID = 100;
-	this.MAXIMUM_MONEY = 20;
+	this.MAXIMUM_MONEY = 40;
 	this.sprite = new Sprite(this.canvasContext, this.position, "Images/car.svg");
 	this.speed = 2;
 	this.waiting = false;

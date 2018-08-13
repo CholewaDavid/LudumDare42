@@ -85,9 +85,9 @@ Output.prototype.checkPowerConnectivity = function(){
 }
 
 Output.prototype.showWarning = function(){
-	if(this.connected && this.powerConnected)
+	if(this.connected && (this.powerConnected && this.game.power > this.game.usedPower))
 		return;
-	if(!this.connected && !this.powerConnected){
+	if(!this.connected && (!this.powerConnected || this.game.power < this.game.usedPower)){
 		if(this.shownWarningToggle)
 			this.powerWarningSprite.draw();
 		else
@@ -95,7 +95,7 @@ Output.prototype.showWarning = function(){
 	}
 	else if(!this.connected)
 		this.fluidWarningSprite.draw();
-	else if(!this.powerConnected)
+	else if(!this.powerConnected || this.game.power < this.game.usedPower)
 		this.powerWarningSprite.draw();
 }
 
